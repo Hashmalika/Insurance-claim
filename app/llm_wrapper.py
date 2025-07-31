@@ -147,17 +147,28 @@ import os
 import re
 import json
 from llama_cpp import Llama
+_original_del = Llama.__del__
+
+def safe_del(self):
+    try:
+        _original_del(self)
+    except AttributeError:
+        pass
+
+Llama.__del__ = safe_del
 from json_repair import repair_json   # <== install: pip install json-repair
+from app.download_model import download_file
 
 class InsuranceClaimProcessor:
     def __init__(self, model_path=None):
         if model_path:
             self.model_path = os.path.abspath(model_path)
         else:
-            base_dir = os.path.dirname(os.path.abspath(__file__))  # app/
-            self.model_path = os.path.abspath(
-                os.path.join(base_dir, "..", "phi3", "phi-3-mini-4k-instruct-q4.gguf")
-            )
+            # base_dir = os.path.dirname(os.path.abspath(__file__))  # app/
+            # self.model_path = os.path.abspath(
+            #     os.path.join(base_dir, "..", "phi3", "phi-3-mini-4k-instruct-q4.gguf")
+            # )
+            self.model_path = download_file()
 
         print(f"[DEBUG] Final GGUF path: {self.model_path}")
         self.llm = None
@@ -165,8 +176,8 @@ class InsuranceClaimProcessor:
 
     def _setup_model(self):
         if not os.path.exists(self.model_path):
-            print(f"[ERROR] GGUF model not found at {self.model_path}")
-            return
+            raise FileNotFoundError(f"[ERROR] GGUF model not found at {self.model_path}")
+
 
         print(f"[INFO] Loading GGUF model from {self.model_path}")
         self.llm = Llama(model_path=self.model_path, n_ctx=4096, n_batch=512)
