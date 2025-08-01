@@ -1,4 +1,9 @@
-phi3/
-*.gguf
 __pycache__/
-*.pyc
+*.gguf
+*.bin
+*.pt
+venv/
+.env
+*.zip
+*.tar
+phi3/*
