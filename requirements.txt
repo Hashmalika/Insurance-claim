@@ -26,5 +26,5 @@ tqdm
 requests
 json-repair
 
-# Note: llama-cpp-python is installed separately in Dockerfile from pre-built wheel
-# Do NOT include llama-cpp-python here
+# LLM support - will compile from source with build tools
+llama-cpp-python
