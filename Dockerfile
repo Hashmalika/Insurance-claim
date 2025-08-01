@@ -1,15 +1,25 @@
-# Use an official Python runtime
+# Use slim Python base
 FROM python:3.11-slim
 
-# Set the working directory
+# Install required system packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    gcc \
+    g++ \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
 
-# Copy all project files
+# Copy everything into the container
 COPY . .
 
-# Install dependencies
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Run the application
+# Run the FastAPI app
 CMD ["python", "app/main.py"]
