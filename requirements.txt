@@ -1,19 +1,56 @@
+# fastapi
+# uvicorn
+# pydantic
+# python-multipart
+# aiofiles
+# faiss-cpu
+# sentence-transformers
+# llama-cpp-python
+# pdfplumber
+# sqlalchemy
+# asyncpg
+# python-dotenv
+# tqdm
+# requests
+# transformers>=4.41.0
+# accelerate
+# flask
+# gunicorn
+# json-repair
+
+
+# Web framework
 fastapi
-uvicorn
+uvicorn[standard]
 pydantic
 python-multipart
 aiofiles
-faiss-cpu
-sentence-transformers
-llama-cpp-python
-pdfplumber
+
+# Database
 sqlalchemy
 asyncpg
+
+# ML/AI - Use pre-built wheels when possible
+sentence-transformers
+transformers>=4.41.0
+accelerate
+
+# Vector database
+faiss-cpu
+
+# PDF processing
+pdfplumber
+
+# Utilities
 python-dotenv
 tqdm
 requests
-transformers>=4.41.0
-accelerate
-flask
-gunicorn
 json-repair
+
+# Use pre-built wheel for llama-cpp-python (much faster)
+llama-cpp-python --index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+
+# Remove Flask/Gunicorn if not needed (you're using FastAPI/Uvicorn)
+# flask
+# gunicorn
+
