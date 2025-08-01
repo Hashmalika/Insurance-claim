@@ -1,1 +1,1 @@
-web: bash download_model.sh && python app/main.py
+web: python app/main.py

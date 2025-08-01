@@ -164,11 +164,12 @@ class InsuranceClaimProcessor:
         if model_path:
             self.model_path = os.path.abspath(model_path)
         else:
-            base_dir = os.path.dirname(os.path.abspath(__file__))  # app/
-            self.model_path = os.path.abspath(
-                os.path.join(base_dir, "..", "phi3", "phi-3-mini-4k-instruct-q4.gguf")
-            )
-            # self.model_path = download_file()
+            # base_dir = os.path.dirname(os.path.abspath(__file__))  # app/
+            # self.model_path = os.path.abspath(
+            #     os.path.join(base_dir, "..", "phi3", "phi-3-mini-4k-instruct-q4.gguf")
+            # )
+           from app.download_model import download_file
+           self.model_path = download_file()
 
         print(f"[DEBUG] Final GGUF path: {self.model_path}")
         self.llm = None

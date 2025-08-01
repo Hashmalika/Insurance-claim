@@ -3,13 +3,13 @@ from app.schema import EnhancedQuery
 from app.chunker import get_chunks_from_pdf
 from app.faiss_index import add_chunks, get_relevant_chunks
 from app.prompt import build_prompt
-from app.download_model import download_file
+# from app.download_model import download_file
 from app.llm_wrapper import InsuranceClaimProcessor
 import requests
 import os
 import tempfile
 
-download_file()
+# download_file()
 # Initialize processor once so the model loads only at startup
 processor = InsuranceClaimProcessor()
 
